@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  min-height: 100dvh;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: #131313;
+  color: #e5e2e1;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.glass-header {
+  background: rgba(19, 19, 19, 0.7);
+  backdrop-filter: blur(20px);
+}
+
+.album-shadow {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.spotify-shadow {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.token-card-glow {
+  box-shadow: 0 0 40px rgba(29, 185, 84, 0.1);
+}
+
+.bento-card {
+  background-color: #181818;
+  transition: background-color 0.2s ease;
+}
+.bento-card:hover {
+  background-color: #282828;
+}
+
+.artist-input {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  background: #2a2a2a;
+  padding: 0.75rem 1rem;
+  color: #e5e2e1;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.artist-input::placeholder {
+  color: rgba(188, 203, 185, 0.45);
+}
+
+.artist-input:focus {
+  border-color: #53e076;
+  box-shadow: 0 0 0 1px #53e076;
+}
+
+.scanning-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #1db954, transparent);
+  box-shadow: 0 0 15px #1db954;
+  position: absolute;
+  left: 0;
+  right: 0;
+  animation: scan 4s ease-in-out infinite;
+}
+
+.pulse-error {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Orange Music - Checkout</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Hide scrollbar for clean UI */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .active-ring {
+            box-shadow: 0 0 0 2px #ff6b00;
+        }
+
+        .tap-target {
+            min-height: 44px;
+            min-width: 44px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#351000",
+                        "on-secondary-container": "#ffffff",
+                        "on-tertiary-container": "#373029",
+                        "tertiary-container": "#a2978e",
+                        "surface-container-high": "#2c2c2c",
+                        "tertiary": "#665d55",
+                        "tertiary-fixed-dim": "#d1c4bb",
+                        "primary-fixed-dim": "#ffb693",
+                        "primary": "#ff6b00",
+                        "surface-container-lowest": "#0e0e0e",
+                        "outline": "#4e453e",
+                        "surface-tint": "#ff6b00",
+                        "on-surface-variant": "#a2978e",
+                        "surface-container": "#1c1b1b",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#7c2e00",
+                        "secondary-container": "#ff6b00",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#2c2c2c",
+                        "secondary-fixed": "#ffdbcd",
+                        "error": "#ffb4ab",
+                        "surface-bright": "#393939",
+                        "on-tertiary-fixed-variant": "#4e453e",
+                        "on-surface": "#e5e2e1",
+                        "on-background": "#e5e2e1",
+                        "background": "#131313",
+                        "secondary": "#ff6b00",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "secondary-fixed-dim": "#ffb596",
+                        "tertiary-fixed": "#eee0d6",
+                        "primary-container": "#ff6b00",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#93000a",
+                        "surface-container-highest": "#333333",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary-container": "#ffffff",
+                        "inverse-primary": "#ffb693",
+                        "surface": "#131313",
+                        "on-tertiary-fixed": "#211a15",
+                        "surface-dim": "#131313",
+                        "surface-container-low": "#1c1b1b",
+                        "primary-fixed": "#ffdbcc",
+                        "on-secondary-fixed": "#360f00",
+                        "outline-variant": "#393939"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "md": "24px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "xl": "64px",
+                        "sm": "12px",
+                        "lg": "40px",
+                        "margin-desktop": "80px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Manrope"],
+                        "title-lg": ["Manrope"],
+                        "display-lg-mobile": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "headline-lg": ["Manrope"],
+                        "display-lg": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "headline-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md no-scrollbar selection:bg-secondary-fixed-dim">
+<!-- Top AppBar -->
+<nav class="fixed top-0 w-full z-50 flex items-center px-margin-mobile h-14 bg-surface-dim shadow-md">
+<button class="tap-target -ml-2 flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors active:scale-95 duration-100" onclick="window.history.back()">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="ml-4 font-headline-lg-mobile text-headline-lg-mobile font-black text-primary">Checkout</h1>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-20 pb-40 px-margin-mobile max-w-[390px] mx-auto min-h-screen">
+<!-- Order Summary Card -->
+<section class="mb-gutter">
+<div class="bg-surface-container-lowest rounded-xl p-base flex gap-sm border border-outline-variant items-center">
+<div class="w-16 h-16 rounded-lg overflow-hidden shrink-0">
+<img alt="Echoes of Summer Album Cover" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzpIejMMjjB3GowLzDjRx8IVlbGqMSqJMLRTntMN6VTca0VS5WG50qLNHWuxbw9v5X9oV-xqf09M5kveB2ca9VN3iMkevH-cDttdEd0E_VHaxBSL5ZwQyvvxJ-rwpvgsVvSB7pYiEGCtTkNj6HwUyX7Bha2075IQsdr4qVWSVzoxtW2EoxJsBVEiRtWQPByShj17TLo4NTHeOmlyBBTf5SjaS-0sUGBLEwb1MUGFNejFk0uPG0eumxti0E2yjKQTGDgHP2eGFG2y1g"/>
+</div>
+<div class="flex-grow flex flex-col justify-center">
+<span class="font-title-lg text-title-lg text-on-surface leading-tight">Echoes of Summer</span>
+<span class="font-body-md text-on-surface-variant">Full Album • 12 Tracks</span>
+</div>
+<div class="text-right shrink-0 pr-2">
+<span class="font-title-lg text-title-lg text-secondary">$12.00</span>
+</div>
+</div>
+</section>
+<!-- Payment Methods Selection -->
+<section class="mb-gutter">
+<h3 class="font-label-lg text-label-lg text-on-surface-variant mb-base uppercase tracking-wider">Payment Method</h3>
+<div class="grid grid-cols-1 gap-base">
+<!-- MTN - Selected -->
+<button class="bg-surface-container-low p-gutter rounded-xl flex items-center gap-sm active-ring transition-all active:scale-95 duration-150 border-2 border-primary">
+<div class="w-12 h-12 rounded-lg flex items-center justify-center bg-[#FFCC00]">
+<img alt="MTN Logo" class="w-8 h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRKVtUPDtbX_ax5mpDrnCn1ZXci0_XPRQvE6uRoxaykGpT3BX0CdICiewDXFm05qkMSsQyoGOt3O9nM9pWxlM9w2BxSZFM8DCZpBU8f3_8bWtsxHLCPHUO0sMH29HqY9D0uJsYl0ItbDtvyHsxLQPsQQNkcBQ5aujNzjnE4xG8SlpD5Ou6CIOpqraBmP5EFeMYnX1O7nF9HerMNB129hoJ3Iz_XNXXDpW93JJ-xk63jNCYAX7oo051EqhvtM9BKdPlwgqU8lus5Q9P"/>
+</div>
+<div class="flex-grow text-left">
+<span class="font-title-lg text-title-lg block text-on-surface">MTN Mobile Money</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Fast &amp; Secure</span>
+</div>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</button>
+<!-- Airtel -->
+<button class="bg-surface-container-low p-gutter rounded-xl flex items-center gap-sm border-2 border-outline-variant hover:bg-surface-container-high active:scale-95 duration-150">
+<div class="w-12 h-12 rounded-lg flex items-center justify-center bg-[#E11900]">
+<img alt="Airtel Logo" class="w-8 h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXoziXQ3CKFrBfqa6eMMal1OPuc0CKnnUtS8ImhllQkIWtOHnpvjeH9CXsqo1RYolwByCmzYkk0TSRCz0a1N8GgKtLfq1e2hnyVs9n8ULLhHB-BgPh0vSWFZqfLnPpXEAqk_1Sv3lhRC0lPqZ9f7huKtm82KQzUUJKa3XiMWRNLI5qXRinAAPf3LT7UcIEGw1e0b4rxW2MKMgI23PG7qipAFl9N9VwwLaCtULaxxezDRq4OLV1Fr0HFIhnu8j0ficw3yK8MMWlylni"/>
+</div>
+<div class="flex-grow text-left">
+<span class="font-title-lg text-title-lg block text-on-surface">Airtel Money</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Instant Payment</span>
+</div>
+<span class="material-symbols-outlined text-outline">radio_button_unchecked</span>
+</button>
+<!-- Bank Card -->
+<button class="bg-surface-container-low p-gutter rounded-xl flex items-center gap-sm border-2 border-outline-variant hover:bg-surface-container-high active:scale-95 duration-150">
+<div class="w-12 h-12 rounded-lg flex items-center justify-center bg-surface-container-high">
+<span class="material-symbols-outlined text-on-surface" style="font-size: 32px;">credit_card</span>
+</div>
+<div class="flex-grow text-left">
+<span class="font-title-lg text-title-lg block text-on-surface">Bank Card</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Visa, Mastercard</span>
+</div>
+<span class="material-symbols-outlined text-outline">radio_button_unchecked</span>
+</button>
+<!-- PayPal -->
+<button class="bg-surface-container-low p-gutter rounded-xl flex items-center gap-sm border-2 border-outline-variant hover:bg-surface-container-high active:scale-95 duration-150">
+<div class="w-12 h-12 rounded-lg flex items-center justify-center bg-surface-container-high">
+<span class="material-symbols-outlined text-on-surface" style="font-size: 32px;">account_balance_wallet</span>
+</div>
+<div class="flex-grow text-left">
+<span class="font-title-lg text-title-lg block text-on-surface">PayPal</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Fast &amp; Secure</span>
+</div>
+<span class="material-symbols-outlined text-outline">radio_button_unchecked</span>
+</button>
+</div>
+</section>
+<!-- Input Section -->
+<section class="mb-lg">
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-on-surface-variant ml-1" for="momo-number">Mobile Money Number</label>
+<div class="relative group">
+<input autofocus="" class="w-full h-14 px-gutter bg-surface-container-lowest border border-outline-variant rounded-xl text-title-lg text-on-surface focus:ring-2 focus:ring-primary focus:border-primary transition-all placeholder:text-outline" id="momo-number" placeholder="070 000 0000" type="tel"/>
+<div class="absolute right-gutter top-1/2 -translate-y-1/2 flex items-center">
+<span class="material-symbols-outlined text-on-surface-variant">dialpad</span>
+</div>
+</div>
+<p class="mt-base text-center font-label-sm text-label-sm text-on-surface-variant px-gutter leading-relaxed">
+                    You will receive a prompt on your phone to approve the transaction.
+                </p>
+</div>
+</section>
+<!-- Security Badge -->
+<section class="flex justify-center items-center gap-2 mb-gutter opacity-80">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-size: 18px;">verified_user</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Secure Payment by Orange Music</span>
+</section>
+</main>
+<!-- Fixed Bottom Action Bar -->
+<div class="fixed bottom-0 w-full bg-surface-container-lowest p-gutter pt-gutter pb-8 shadow-[0_-4px_20px_rgba(0,0,0,0.4)] z-50 border-t border-outline-variant">
+<div class="max-w-[390px] mx-auto flex flex-col gap-gutter">
+<div class="flex justify-between items-center px-1">
+<span class="font-body-md text-on-surface-variant">Total Amount</span>
+<span class="font-headline-md text-headline-md text-primary">$12.00</span>
+</div>
+<button class="w-full h-14 bg-secondary-container text-on-secondary-container rounded-xl font-title-lg text-title-lg shadow-lg active:scale-95 transition-all duration-200 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">lock</span>
+                Pay $12.00
+            </button>
+</div>
+</div>
+<!-- Micro-interaction script -->
+<script>
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Haptic feedback simulation if supported
+                if (window.navigator.vibrate) {
+                    window.navigator.vibrate(10);
+                }
+                
+                // Visual toggle for payment methods
+                const isPaymentMethod = this.querySelector('.material-symbols-outlined:last-child')?.innerText.includes('radio_button') || 
+                                       this.querySelector('.material-symbols-outlined:last-child')?.innerText.includes('check_circle');
+                
+                if (isPaymentMethod) {
+                    document.querySelectorAll('button').forEach(el => {
+                        const icon = el.querySelector('.material-symbols-outlined:last-child');
+                        if (icon && (icon.innerText === 'check_circle' || icon.innerText === 'radio_button_unchecked')) {
+                            el.classList.remove('active-ring', 'border-primary');
+                            el.classList.add('border-outline-variant');
+                            icon.innerText = 'radio_button_unchecked';
+                            icon.classList.remove('text-primary');
+                            icon.classList.add('text-outline');
+                            icon.style.fontVariationSettings = "'FILL' 0";
+                        }
+                    });
+                    
+                    this.classList.add('active-ring', 'border-primary');
+                    this.classList.remove('border-outline-variant');
+                    const icon = this.querySelector('.material-symbols-outlined:last-child');
+                    if (icon) {
+                        icon.innerText = 'check_circle';
+                        icon.classList.remove('text-outline');
+                        icon.classList.add('text-primary');
+                        icon.style.fontVariationSettings = "'FILL' 1";
+                    }
+                }
+            });
+        });
+    </script>
+</body></html>

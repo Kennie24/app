@@ -1,0 +1,210 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+
+@theme {
+    /* Sonic Spotify Theme — ported from the React portal */
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    --color-background: #131313;
+    --color-surface: #131313;
+    --color-surface-dim: #131313;
+    --color-surface-bright: #393939;
+    --color-surface-container-lowest: #0e0e0e;
+    --color-surface-container-low: #1c1b1b;
+    --color-surface-container: #201f1f;
+    --color-surface-container-high: #2a2a2a;
+    --color-surface-container-highest: #353534;
+    --color-surface-variant: #353534;
+
+    --color-on-surface: #e5e2e1;
+    --color-on-surface-variant: #bccbb9;
+    --color-on-background: #e5e2e1;
+
+    --color-primary: #53e076;
+    --color-primary-container: #1db954;
+    --color-on-primary: #003914;
+    --color-on-primary-container: #004118;
+    --color-primary-fixed: #72fe8f;
+    --color-primary-fixed-dim: #53e076;
+
+    --color-secondary: #cfc4c4;
+    --color-on-secondary: #352f2f;
+    --color-secondary-container: #4c4545;
+    --color-on-secondary-container: #bdb3b2;
+
+    --color-tertiary: #ffb3b3;
+    --color-tertiary-container: #ff767b;
+    --color-on-tertiary: #680114;
+    --color-on-tertiary-container: #730a1b;
+
+    --color-error: #ffb4ab;
+    --color-error-container: #93000a;
+    --color-on-error: #690005;
+    --color-on-error-container: #ffdad6;
+
+    --color-outline: #869585;
+    --color-outline-variant: #3d4a3d;
+
+    --radius-DEFAULT: 0.25rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+
+    --text-display-lg: 48px;
+    --text-display-lg--line-height: 56px;
+    --text-display-lg--letter-spacing: -0.04em;
+    --text-display-lg--font-weight: 900;
+
+    --text-headline-lg: 32px;
+    --text-headline-lg--line-height: 40px;
+    --text-headline-lg--letter-spacing: -0.02em;
+    --text-headline-lg--font-weight: 700;
+
+    --text-headline-md: 24px;
+    --text-headline-md--line-height: 32px;
+    --text-headline-md--letter-spacing: -0.01em;
+    --text-headline-md--font-weight: 700;
+
+    --text-body-lg: 16px;
+    --text-body-lg--line-height: 24px;
+
+    --text-body-md: 14px;
+    --text-body-md--line-height: 20px;
+
+    --text-label-md: 12px;
+    --text-label-md--line-height: 16px;
+    --text-label-md--letter-spacing: 0.05em;
+    --text-label-md--font-weight: 700;
+
+    --text-label-sm: 11px;
+    --text-label-sm--line-height: 14px;
+
+    --spacing-xs: 4px;
+    --spacing-base: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-gutter: 16px;
+    --spacing-container-margin: 24px;
+
+    /* Container widths for names that do not collide with semantic spacing
+       tokens. Colliding max-width utilities use explicit values in markup. */
+    --container-3xs: 16rem;
+    --container-2xs: 18rem;
+    --container-xs:  20rem;
+    --container-sm:  24rem;
+    --container-md:  28rem;
+    --container-lg:  32rem;
+    --container-xl:  36rem;
+    --container-2xl: 42rem;
+    --container-3xl: 48rem;
+    --container-4xl: 56rem;
+    --container-5xl: 64rem;
+    --container-6xl: 72rem;
+    --container-7xl: 80rem;
+    --container-prose: 65ch;
+}
+
+html, body {
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.material-symbols-outlined.filled {
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+}
+
+.glass-header {
+    background: rgba(19, 19, 19, 0.7);
+    backdrop-filter: blur(20px);
+}
+
+.bento-card {
+    background-color: #181818;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.bento-card:hover {
+    background-color: #282828;
+}
+
+.pulse-error {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Scroll-reveal: pure CSS via IntersectionObserver-applied .is-visible */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.reveal[data-direction="left"]  { transform: translateX(24px); }
+.reveal[data-direction="right"] { transform: translateX(-24px); }
+.reveal[data-direction="scale"] { transform: scale(0.94); }
+.reveal[data-direction="left"].is-visible,
+.reveal[data-direction="right"].is-visible { transform: translateX(0); }
+.reveal[data-direction="scale"].is-visible { transform: scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* Sidebar active state */
+.sidebar-link {
+    color: var(--color-secondary);
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+.sidebar-link:hover {
+    color: var(--color-on-surface);
+    background-color: var(--color-surface-container);
+}
+.sidebar-link.active {
+    color: var(--color-primary);
+    background-color: rgba(83, 224, 118, 0.08);
+}
+.sidebar-link.active .nav-rail {
+    background-color: var(--color-primary);
+}
+
+.scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: var(--color-primary);
+    z-index: 60;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.1s linear;
+}
