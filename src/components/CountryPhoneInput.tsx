@@ -4,20 +4,11 @@ import { Icon } from "@/components/Icon";
 
 const displayNames = new Intl.DisplayNames(["en"], { type: "region" });
 
-function flagFor(country: CountryCode) {
-  return country
-    .toUpperCase()
-    .split("")
-    .map((character) => String.fromCodePoint(127397 + character.charCodeAt(0)))
-    .join("");
-}
-
 const countries = getCountries()
   .map((code) => ({
     code,
     name: displayNames.of(code) ?? code,
     dialCode: `+${getCountryCallingCode(code)}`,
-    flag: flagFor(code),
   }))
   .sort((a, b) => a.name.localeCompare(b.name));
 
@@ -62,7 +53,7 @@ export function CountryPhoneInput({
           aria-expanded={open}
           className="flex h-full shrink-0 items-center gap-xs border-r border-surface-container-highest px-sm text-on-surface hover:bg-white/5 sm:px-md"
         >
-          <span className="text-xl" aria-hidden>{country.flag}</span>
+          <span className={`fi fi-${country.code.toLowerCase()} text-xl`} aria-hidden />
           <span className="font-body-md text-body-md">{country.dialCode}</span>
           <Icon name="expand_more" className={`text-[18px] text-secondary transition-transform ${open ? "rotate-180" : ""}`} />
         </button>
@@ -108,7 +99,7 @@ export function CountryPhoneInput({
                     }}
                     className={`flex w-full items-center gap-sm px-md py-sm text-left transition-colors hover:bg-surface-container-high ${item.code === selected ? "bg-primary/10" : ""}`}
                   >
-                    <span className="w-7 text-xl" aria-hidden>{item.flag}</span>
+                    <span className={`fi fi-${item.code.toLowerCase()} w-7 text-xl`} aria-hidden />
                     <span className="min-w-0 flex-1 truncate font-body-md text-body-md text-on-surface">{item.name}</span>
                     <span className="font-body-md text-body-md text-secondary">{item.dialCode}</span>
                     <span className="w-7 font-label-sm text-label-sm text-outline">{item.code}</span>
