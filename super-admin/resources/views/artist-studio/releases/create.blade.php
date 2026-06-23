@@ -2,7 +2,7 @@
 
 @section('title', 'New Release · Artist Studio')
 @section('page-title', 'Create a new release')
-@section('page-subtitle', 'Upload artwork, full songs, and preview audio for a single or album.')
+@section('page-subtitle', 'Upload artwork, full songs, and preview audio for a single, EP, or album.')
 
 @section('actions')
     <a href="{{ route('artist-studio.releases.index') }}"

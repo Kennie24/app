@@ -17,7 +17,7 @@ export type ArtistTrack = {
 export type ArtistRelease = {
   id: string;
   title: string;
-  type: "Single" | "Album";
+  type: "Single" | "EP" | "Album";
   status: "Live" | "Draft";
   price: string;
   image: string;

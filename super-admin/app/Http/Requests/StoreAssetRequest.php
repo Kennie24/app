@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Asset;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
@@ -21,7 +22,7 @@ class StoreAssetRequest extends FormRequest
             'price'            => ['required', 'numeric', 'min:0', 'max:9999.99'],
             'redemption_limit' => ['required', 'integer', 'min:1', 'max:1000000'],
             'status'           => ['required', Rule::in(['live', 'scheduled', 'archived'])],
-            'release_type'     => ['nullable', Rule::in(['single', 'album'])],
+            'release_type'     => ['nullable', Rule::in(Asset::RELEASE_TYPES)],
             'description'      => ['nullable', 'string', 'max:2000'],
             'cover'            => [
                 $this->isMethod('post') ? 'nullable' : 'nullable',
@@ -45,7 +46,7 @@ class StoreAssetRequest extends FormRequest
                 $tracks = $this->input('tracks', []);
 
                 if ($this->input('release_type', 'single') === 'single' && count($tracks) !== 1) {
-                    $validator->errors()->add('tracks', 'A single must contain exactly one track.');
+                    $validator->errors()->add('tracks', 'A single must contain exactly one track. Choose EP or Album to add more.');
                 }
 
                 foreach ($tracks as $index => $track) {

@@ -15,7 +15,7 @@
         'Resolved'      => 'bg-primary/15 text-primary',
     ];
     // SVG path for load chart
-    $max = max($loadSeries); $w = 800; $h = 160;
+    $max = max(1, max($loadSeries)); $w = 800; $h = 160;
     $step = $w / max(1, count($loadSeries) - 1);
     $line = ''; $area = '';
     foreach ($loadSeries as $i => $v) {
@@ -44,7 +44,7 @@
 
     {{-- Metric tiles --}}
     <section class="grid grid-cols-2 xl:grid-cols-4 gap-gutter mb-lg">
-        @foreach ($metrics as $i => $m)
+        @forelse ($metrics as $i => $m)
             <div class="reveal bento-card rounded-xl p-md border border-outline-variant/10" style="--reveal-delay: {{ $i * 60 }}ms">
                 <div class="flex items-center gap-xs text-secondary mb-xs">
                     <span class="material-symbols-outlined text-[18px]">{{ $m['icon'] }}</span>
@@ -52,7 +52,11 @@
                 </div>
                 <h3 class="text-headline-md font-black text-on-surface">{{ $m['value'] }}</h3>
             </div>
-        @endforeach
+        @empty
+            <div class="reveal col-span-full rounded-xl border border-outline-variant/20 bg-surface-container-low p-lg text-body-md text-secondary">
+                No system metrics are connected yet.
+            </div>
+        @endforelse
     </section>
 
     {{-- Load chart --}}
@@ -102,7 +106,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($services as $s)
+                    @forelse ($services as $s)
                         @php $ok = $s['status'] === 'Operational'; @endphp
                         <tr class="border-b border-outline-variant/10 hover:bg-surface-container/60 transition">
                             <td class="px-lg py-md text-body-md font-bold text-on-surface">{{ $s['service'] }}</td>
@@ -116,7 +120,11 @@
                             <td class="px-lg py-md text-body-md text-on-surface hidden md:table-cell">{{ $s['latency'] }}</td>
                             <td class="px-lg py-md text-body-md text-on-surface text-right">{{ $s['uptime'] }}</td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="5" class="px-lg py-xl text-center text-body-md text-secondary">No service health data yet.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -125,7 +133,7 @@
             <div class="bento-card rounded-xl border border-outline-variant/10 p-lg h-full">
                 <h3 class="text-label-md uppercase tracking-widest text-secondary mb-md">Recent Incidents</h3>
                 <ul class="space-y-md">
-                    @foreach ($incidents as $inc)
+                    @forelse ($incidents as $inc)
                         <li class="border-l-2 border-outline-variant/30 pl-md">
                             <div class="flex items-center gap-xs mb-xs">
                                 <span class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-label-sm font-bold uppercase tracking-widest {{ $sevClasses[$inc['severity']] ?? '' }}">
@@ -138,7 +146,9 @@
                             <p class="text-body-md font-bold text-on-surface">{{ $inc['title'] }}</p>
                             <p class="text-label-sm text-secondary">{{ $inc['time'] }}</p>
                         </li>
-                    @endforeach
+                    @empty
+                        <li class="text-body-md text-secondary">No incidents have been recorded.</li>
+                    @endforelse
                 </ul>
             </div>
         </div>

@@ -4,7 +4,7 @@
 @section('breadcrumb', 'Revenue')
 
 @php
-    $max = max($bars['values']);
+    $max = max(1, max($bars['values'] ?: [0]));
     $statusClasses = ['Processed' => 'bg-primary/15 text-primary', 'Pending' => 'bg-tertiary-container/40 text-tertiary'];
 @endphp
 
@@ -96,7 +96,7 @@
                     </svg>
                 </div>
                 <ul class="space-y-xs">
-                    @foreach ($byRegion as $i => $rg)
+                    @forelse ($byRegion as $i => $rg)
                         <li class="flex items-center justify-between text-body-md">
                             <span class="flex items-center gap-xs min-w-0">
                                 <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background: {{ $colors[$i] ?? '#53e076' }}"></span>
@@ -104,7 +104,9 @@
                             </span>
                             <span class="font-bold text-on-surface whitespace-nowrap">{{ $rg['value'] }}</span>
                         </li>
-                    @endforeach
+                    @empty
+                        <li class="text-body-md text-secondary">No regional revenue data yet.</li>
+                    @endforelse
                 </ul>
             </div>
         </div>
@@ -115,7 +117,7 @@
         <div class="reveal bento-card rounded-xl border border-outline-variant/10 p-lg">
             <h3 class="text-label-md uppercase tracking-widest text-secondary mb-md">Top Earners</h3>
             <ul class="space-y-md">
-                @foreach ($topEarners as $i => $e)
+                @forelse ($topEarners as $i => $e)
                     <li>
                         <div class="flex items-center gap-sm mb-xs">
                             <span class="text-body-md font-black text-secondary w-5 text-right">{{ $i + 1 }}</span>
@@ -130,7 +132,9 @@
                             <div class="h-full rounded-full bg-primary" style="width: {{ $e['pct'] }}%"></div>
                         </div>
                     </li>
-                @endforeach
+                @empty
+                    <li class="text-body-md text-secondary">No earning releases yet.</li>
+                @endforelse
             </ul>
         </div>
 
@@ -153,7 +157,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($payouts as $p)
+                        @forelse ($payouts as $p)
                             <tr class="border-b border-outline-variant/10">
                                 <td class="px-lg py-md text-body-md text-on-surface">{{ $p['date'] }}</td>
                                 <td class="px-lg py-md text-body-md text-secondary hidden md:table-cell">{{ $p['method'] }}</td>
@@ -164,7 +168,11 @@
                                     </span>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="4" class="px-lg py-xl text-center text-body-md text-secondary">No payouts yet.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

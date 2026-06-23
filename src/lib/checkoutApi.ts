@@ -1,15 +1,11 @@
-export type CheckoutMethod = "mtn_momo" | "airtel_money" | "card" | "paypal";
-
 export type CheckoutPurchase = {
   reference: string;
   status: "pending" | "processing" | "succeeded" | "failed" | "cancelled";
   amount: string;
   currency: string;
-  method: CheckoutMethod;
+  method: string;
   provider: string | null;
   provider_ref: string | null;
-  client_secret: string | null;
-  msisdn: string | null;
   email: string | null;
   completed_at: string | null;
   failure_reason: string | null;
@@ -43,8 +39,8 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 }
 
 export const checkoutApi = {
-  initiate: (body: { asset_key: string; method: CheckoutMethod; msisdn?: string; email?: string }) =>
-    request<{ purchase: CheckoutPurchase; sandbox: boolean }>("/api/fan/checkout", {
+  initiate: (body: { asset_key: string | number; email?: string }) =>
+    request<{ purchase: CheckoutPurchase; redirect_url: string; sandbox: boolean }>("/api/fan/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),

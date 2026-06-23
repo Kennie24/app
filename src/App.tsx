@@ -18,6 +18,7 @@ import { Discover } from "@/pages/Discover";
 import { Artists } from "@/pages/Artists";
 import { Community } from "@/pages/Community";
 import { Checkout } from "@/pages/Checkout";
+import { CheckoutCallback } from "@/pages/CheckoutCallback";
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
       <Route path="/artists" element={<Artists />} />
       <Route path="/community" element={<Community />} />
       <Route path="/checkout/:key" element={<Checkout />} />
+      <Route path="/checkout/callback" element={<CheckoutCallback />} />
       <Route element={<AppShell />}>
         <Route path="/scan" element={<ScanToRedeem />} />
         <Route path="/redeem" element={<RedeemYourEP />} />

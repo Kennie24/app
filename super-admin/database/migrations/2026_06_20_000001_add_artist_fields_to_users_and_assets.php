@@ -15,7 +15,7 @@ return new class extends Migration
 
         Schema::table('assets', function (Blueprint $table) {
             $table->foreignId('user_id')->nullable()->after('id')->constrained()->nullOnDelete();
-            $table->enum('release_type', ['single', 'album'])->default('single')->after('artist');
+            $table->enum('release_type', ['single', 'ep', 'album'])->default('single')->after('artist');
         });
     }
 

@@ -96,7 +96,7 @@ export function ArtistDashboard() {
       {error && <div role="alert" className="flex items-center gap-sm rounded-xl border border-error/30 bg-error-container/20 p-md text-error"><Icon name="error" /><span>{error}</span></div>}
 
       <section>
-        <Reveal><div className="mb-md flex items-end justify-between px-xs"><div><h2 className="font-headline-md text-headline-md">Music catalog</h2><p className="font-body-md text-body-md text-secondary">Upload singles or albums and configure samples before purchase.</p></div><button onClick={() => setStudioOpen(true)} className="font-label-md text-label-md text-primary hover:underline">ADD RELEASE</button></div></Reveal>
+        <Reveal><div className="mb-md flex items-end justify-between px-xs"><div><h2 className="font-headline-md text-headline-md">Music catalog</h2><p className="font-body-md text-body-md text-secondary">Upload singles, EPs, or albums and configure samples before purchase.</p></div><button onClick={() => setStudioOpen(true)} className="font-label-md text-label-md text-primary hover:underline">ADD RELEASE</button></div></Reveal>
         <StaggerGroup className="grid grid-cols-1 gap-gutter md:grid-cols-2 xl:grid-cols-3" stagger={0.08}>
           {releases.map((release) => <StaggerItem key={release.id}><ReleaseCard release={release} activePreview={activePreview} setActivePreview={setActivePreview} /></StaggerItem>)}
         </StaggerGroup>
@@ -127,7 +127,7 @@ function SamplePlayer({ releaseId, track, playing, onPlaying }: { releaseId: str
 }
 
 function UploadStudio({ onClose, onSave }: { onClose: () => void; onSave: (form: FormData) => Promise<void> }) {
-  const [type, setType] = useState<"Single" | "Album">("Single");
+  const [type, setType] = useState<"Single" | "EP" | "Album">("Single");
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("2.99");
   const [cover, setCover] = useState(FALLBACK_COVER);
@@ -136,7 +136,11 @@ function UploadStudio({ onClose, onSave }: { onClose: () => void; onSave: (form:
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
 
-  const changeType = (next: "Single" | "Album") => { setType(next); setPrice(next === "Single" ? "2.99" : "9.99"); if (next === "Single") setTracks((items) => [items[0]]); };
+  const changeType = (next: "Single" | "EP" | "Album") => {
+    setType(next);
+    setPrice(next === "Single" ? "2.99" : next === "EP" ? "5.99" : "9.99");
+    if (next === "Single") setTracks((items) => [items[0]]);
+  };
   const addTrack = () => setTracks((items) => [...items, { id: crypto.randomUUID(), title: "", fileName: "" }]);
   const updateTrack = (id: string, patch: Partial<UploadTrack>) => setTracks((items) => items.map((track) => track.id === id ? { ...track, ...patch } : track));
   const submit = async (event: { preventDefault(): void }, status: "Live" | "Draft") => {
@@ -169,7 +173,97 @@ function UploadStudio({ onClose, onSave }: { onClose: () => void; onSave: (form:
     }
   };
 
-  return <div className="fixed inset-0 z-[100] flex items-end justify-center bg-black/80 p-0 backdrop-blur-sm md:items-center md:p-lg" role="dialog" aria-modal="true" aria-label="Upload music"><div className="max-h-[94dvh] w-full max-w-4xl overflow-y-auto rounded-t-2xl border border-outline-variant/20 bg-background md:rounded-2xl"><div className="sticky top-0 z-20 flex items-center justify-between border-b border-outline-variant/15 bg-background/90 p-lg backdrop-blur-xl"><div><span className="font-label-md text-label-md uppercase tracking-widest text-primary">Artist upload studio</span><h2 className="font-headline-lg text-headline-lg">Create a release</h2></div><button onClick={onClose} className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-container-high text-secondary hover:text-white"><Icon name="close"/></button></div><form className="grid grid-cols-1 gap-lg p-lg md:grid-cols-3" onSubmit={(event) => void submit(event, "Live")}><div className="space-y-md"><label className="group relative block aspect-square cursor-pointer overflow-hidden rounded-xl border border-dashed border-outline bg-surface-container-low"><img src={cover} alt="Cover preview" className="h-full w-full object-cover opacity-70"/><div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30"><Icon name="add_photo_alternate" className="text-[42px] text-primary"/><span className="mt-xs font-label-md text-label-md">UPLOAD COVER</span></div><input required type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; if (file) { setCoverFile(file); setCover(URL.createObjectURL(file)); } }}/></label><p className="text-center font-label-sm text-label-sm text-secondary">Square JPG, PNG or WEBP · max 5 MB</p></div><div className="space-y-lg md:col-span-2"><div className="grid grid-cols-2 gap-xs rounded-xl bg-surface-container-low p-1">{(["Single","Album"] as const).map((item) => <button key={item} type="button" onClick={() => changeType(item)} className={`rounded-lg py-sm font-label-md text-label-md ${type === item ? "bg-surface-container-highest text-primary" : "text-secondary"}`}>{item.toUpperCase()}</button>)}</div><div className="grid grid-cols-1 gap-md sm:grid-cols-[1fr_140px]"><Field label="Release title"><input required value={title} onChange={(e) => setTitle(e.target.value)} placeholder={type === "Single" ? "Single title" : "Album title"} className="artist-input"/></Field><Field label="Price (USD)"><input required type="number" min="0" step="0.01" value={price} onChange={(e) => setPrice(e.target.value)} className="artist-input"/></Field></div><div><div className="mb-sm flex items-center justify-between"><div><h3 className="font-body-lg text-body-lg font-bold">Tracks & samples</h3><p className="font-label-sm text-label-sm text-secondary">Upload the full song and an optional preview clip for the store.</p></div>{type === "Album" && <Button type="button" size="sm" variant="outline" onClick={addTrack}><Icon name="add"/>Track</Button>}</div><div className="space-y-sm">{tracks.map((track, index) => <div key={track.id} className="rounded-xl border border-outline-variant/15 bg-surface-container-low p-md space-y-sm"><div className="flex items-center gap-sm"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-container-high text-primary">{index + 1}</span><input required value={track.title} onChange={(e) => updateTrack(track.id, { title: e.target.value })} placeholder="Track title" className="artist-input min-w-0 flex-1"/>{type === "Album" && tracks.length > 1 && <button type="button" onClick={() => setTracks((items) => items.filter((item) => item.id !== track.id))} className="text-secondary hover:text-error"><Icon name="delete"/></button>}</div><label className="flex cursor-pointer items-center justify-between rounded-lg bg-surface-container-high px-md py-sm"><div className="flex min-w-0 items-center gap-sm"><Icon name={track.file ? "check_circle" : "audio_file"} className={track.file ? "text-primary" : "text-secondary"}/><div className="min-w-0"><p className="font-label-xs text-label-sm uppercase tracking-widest text-secondary">Full song</p><p className="truncate text-body-md">{track.fileName || "WAV, MP3, FLAC or M4A"}</p></div></div><span className="font-label-sm text-label-sm text-primary shrink-0">BROWSE</span><input required type="file" accept="audio/*,.wav,.mp3,.flac,.m4a" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; if (file) updateTrack(track.id, { file, fileName: file.name, audioUrl: URL.createObjectURL(file) }); }}/></label>{track.audioUrl && <audio controls src={track.audioUrl} className="h-9 w-full"/>}<label className="flex cursor-pointer items-center justify-between rounded-lg border border-dashed border-outline-variant/40 bg-surface-container px-md py-sm"><div className="flex min-w-0 items-center gap-sm"><Icon name={track.previewFile ? "check_circle" : "play_circle"} className={track.previewFile ? "text-primary" : "text-secondary"}/><div className="min-w-0"><p className="font-label-xs text-label-sm uppercase tracking-widest text-secondary">Preview clip <span className="normal-case tracking-normal">(optional)</span></p><p className="truncate text-body-md">{track.previewFile ? track.previewFile.name : "Custom clip played in the store"}</p></div></div><span className="font-label-sm text-label-sm text-primary shrink-0">BROWSE</span><input type="file" accept="audio/*,.wav,.mp3,.flac,.m4a" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; if (file) updateTrack(track.id, { previewFile: file, previewLocalUrl: URL.createObjectURL(file) }); }}/></label>{track.previewLocalUrl && <audio controls src={track.previewLocalUrl} className="h-9 w-full"/>}</div>)}</div></div>{error && <div role="alert" className="rounded-xl border border-error/30 bg-error-container/20 p-md text-body-md text-error">{error}</div>}<div className="flex flex-col-reverse gap-sm border-t border-outline-variant/15 pt-lg sm:flex-row sm:justify-end"><Button type="button" variant="ghost" onClick={onClose}>Cancel</Button><Button type="button" variant="outline" disabled={saving} onClick={(event) => void submit(event, "Draft")}><Icon name="save"/>Save draft</Button><Button type="submit" disabled={saving}>{saving ? <><Icon name="progress_activity" className="animate-spin"/>Uploading…</> : <><Icon name="publish"/>Publish release</>}</Button></div></div></form></div></div>;
+  return (
+    <div className="fixed inset-0 z-[100] flex items-end justify-center bg-black/80 p-0 backdrop-blur-sm md:items-center md:p-lg" role="dialog" aria-modal="true" aria-label="Upload music">
+      <div className="max-h-[94dvh] w-full max-w-4xl overflow-y-auto rounded-t-2xl border border-outline-variant/20 bg-background md:rounded-2xl">
+        <div className="sticky top-0 z-20 flex items-center justify-between border-b border-outline-variant/15 bg-background/90 p-lg backdrop-blur-xl">
+          <div>
+            <span className="font-label-md text-label-md uppercase tracking-widest text-primary">Artist upload studio</span>
+            <h2 className="font-headline-lg text-headline-lg">Create a release</h2>
+          </div>
+          <button onClick={onClose} className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-container-high text-secondary hover:text-white"><Icon name="close"/></button>
+        </div>
+        <form className="grid grid-cols-1 gap-lg p-lg md:grid-cols-3" onSubmit={(event) => void submit(event, "Live")}>
+          <div className="space-y-md">
+            <label className="group relative block aspect-square cursor-pointer overflow-hidden rounded-xl border border-dashed border-outline bg-surface-container-low">
+              <img src={cover} alt="Cover preview" className="h-full w-full object-cover opacity-70"/>
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30">
+                <Icon name="add_photo_alternate" className="text-[42px] text-primary"/>
+                <span className="mt-xs font-label-md text-label-md">UPLOAD COVER</span>
+              </div>
+              <input required type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; if (file) { setCoverFile(file); setCover(URL.createObjectURL(file)); } }}/>
+            </label>
+            <p className="text-center font-label-sm text-label-sm text-secondary">Square JPG, PNG or WEBP · max 5 MB</p>
+          </div>
+          <div className="space-y-lg md:col-span-2">
+            <div className="grid grid-cols-3 gap-xs rounded-xl bg-surface-container-low p-1">
+              {(["Single", "EP", "Album"] as const).map((item) => (
+                <button key={item} type="button" onClick={() => changeType(item)} className={`rounded-lg py-sm font-label-md text-label-md ${type === item ? "bg-surface-container-highest text-primary" : "text-secondary"}`}>{item.toUpperCase()}</button>
+              ))}
+            </div>
+            <div className="grid grid-cols-1 gap-md sm:grid-cols-[1fr_140px]">
+              <Field label="Release title">
+                <input required value={title} onChange={(e) => setTitle(e.target.value)} placeholder={type === "Single" ? "Single title" : type === "EP" ? "EP title" : "Album title"} className="artist-input"/>
+              </Field>
+              <Field label="Price (USD)">
+                <input required type="number" min="0" step="0.01" value={price} onChange={(e) => setPrice(e.target.value)} className="artist-input"/>
+              </Field>
+            </div>
+            <div>
+              <div className="mb-sm flex items-center justify-between">
+                <div>
+                  <h3 className="font-body-lg text-body-lg font-bold">Tracks & samples</h3>
+                  <p className="font-label-sm text-label-sm text-secondary">Upload the full song and an optional preview clip for the store.</p>
+                </div>
+                {type !== "Single" && <Button type="button" size="sm" variant="outline" onClick={addTrack}><Icon name="add"/>Track</Button>}
+              </div>
+              <div className="space-y-sm">
+                {tracks.map((track, index) => (
+                  <div key={track.id} className="space-y-sm rounded-xl border border-outline-variant/15 bg-surface-container-low p-md">
+                    <div className="flex items-center gap-sm">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-container-high text-primary">{index + 1}</span>
+                      <input required value={track.title} onChange={(e) => updateTrack(track.id, { title: e.target.value })} placeholder="Track title" className="artist-input min-w-0 flex-1"/>
+                      {type !== "Single" && tracks.length > 1 && <button type="button" onClick={() => setTracks((items) => items.filter((item) => item.id !== track.id))} className="text-secondary hover:text-error"><Icon name="delete"/></button>}
+                    </div>
+                    <label className="flex cursor-pointer items-center justify-between rounded-lg bg-surface-container-high px-md py-sm">
+                      <div className="flex min-w-0 items-center gap-sm">
+                        <Icon name={track.file ? "check_circle" : "audio_file"} className={track.file ? "text-primary" : "text-secondary"}/>
+                        <div className="min-w-0">
+                          <p className="font-label-xs text-label-sm uppercase tracking-widest text-secondary">Full song</p>
+                          <p className="truncate text-body-md">{track.fileName || "WAV, MP3, FLAC or M4A"}</p>
+                        </div>
+                      </div>
+                      <span className="font-label-sm text-label-sm text-primary shrink-0">BROWSE</span>
+                      <input required type="file" accept="audio/*,.wav,.mp3,.flac,.m4a" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; if (file) updateTrack(track.id, { file, fileName: file.name, audioUrl: URL.createObjectURL(file) }); }}/>
+                    </label>
+                    {track.audioUrl && <audio controls src={track.audioUrl} className="h-9 w-full"/>}
+                    <label className="flex cursor-pointer items-center justify-between rounded-lg border border-dashed border-outline-variant/40 bg-surface-container px-md py-sm">
+                      <div className="flex min-w-0 items-center gap-sm">
+                        <Icon name={track.previewFile ? "check_circle" : "play_circle"} className={track.previewFile ? "text-primary" : "text-secondary"}/>
+                        <div className="min-w-0">
+                          <p className="font-label-xs text-label-sm uppercase tracking-widest text-secondary">Preview clip <span className="normal-case tracking-normal">(optional)</span></p>
+                          <p className="truncate text-body-md">{track.previewFile ? track.previewFile.name : "Custom clip played in the store"}</p>
+                        </div>
+                      </div>
+                      <span className="font-label-sm text-label-sm text-primary shrink-0">BROWSE</span>
+                      <input type="file" accept="audio/*,.wav,.mp3,.flac,.m4a" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; if (file) updateTrack(track.id, { previewFile: file, previewLocalUrl: URL.createObjectURL(file) }); }}/>
+                    </label>
+                    {track.previewLocalUrl && <audio controls src={track.previewLocalUrl} className="h-9 w-full"/>}
+                  </div>
+                ))}
+              </div>
+            </div>
+            {error && <div role="alert" className="rounded-xl border border-error/30 bg-error-container/20 p-md text-body-md text-error">{error}</div>}
+            <div className="flex flex-col-reverse gap-sm border-t border-outline-variant/15 pt-lg sm:flex-row sm:justify-end">
+              <Button type="button" variant="ghost" onClick={onClose}>Cancel</Button>
+              <Button type="button" variant="outline" disabled={saving} onClick={(event) => void submit(event, "Draft")}><Icon name="save"/>Save draft</Button>
+              <Button type="submit" disabled={saving}>{saving ? <><Icon name="progress_activity" className="animate-spin"/>Uploading…</> : <><Icon name="publish"/>Publish release</>}</Button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) { return <label className="space-y-xs"><span className="font-label-md text-label-md uppercase tracking-widest text-secondary">{label}</span>{children}</label>; }

@@ -172,7 +172,7 @@
                     </svg>
                 </div>
                 <ul class="space-y-xs">
-                    @foreach ($sourceBreakdown as $s)
+                    @forelse ($sourceBreakdown as $s)
                         <li class="flex items-center justify-between text-body-md">
                             <span class="flex items-center gap-xs">
                                 <span class="w-2.5 h-2.5 rounded-full" style="background: {{ $s['color'] }}"></span>
@@ -180,7 +180,9 @@
                             </span>
                             <span class="font-bold text-on-surface">{{ $s['value'] }}%</span>
                         </li>
-                    @endforeach
+                    @empty
+                        <li class="text-body-md text-secondary">No payment source data yet.</li>
+                    @endforelse
                 </ul>
             </div>
         </div>
@@ -209,7 +211,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($recentRedemptions as $r)
+                        @forelse ($recentRedemptions as $r)
                             @php
                                 $variant = $statusColor($r['status']);
                                 $variantClasses = [
@@ -231,7 +233,11 @@
                                 <td class="px-lg py-md text-body-md hidden md:table-cell {{ str_starts_with($r['value'], '-') ? 'text-error' : 'text-on-surface' }}">{{ $r['value'] }}</td>
                                 <td class="px-lg py-md text-label-sm text-secondary text-right">{{ $r['time'] }}</td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="6" class="px-lg py-xl text-center text-body-md text-secondary">No redemption activity yet.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -249,27 +255,9 @@
                         Live
                     </span>
                 </div>
-                <ol class="relative border-s border-outline-variant/30 ml-2 space-y-md">
-                    @foreach ([
-                        ['icon' => 'block',          'title' => 'Token rejected',    'meta' => '#TK-88217 · already redeemed','time' => '6 min ago', 'color' => 'text-error'],
-                        ['icon' => 'payments',       'title' => 'Payment captured',  'meta' => '$9.99 · stripe',             'time' => '8 min ago', 'color' => 'text-primary'],
-                        ['icon' => 'cloud_upload',   'title' => 'New asset published','meta' => 'Cyber Echoes · "Skyline"',  'time' => '22 min ago','color' => 'text-on-surface'],
-                    ] as $event)
-                        <li class="ms-md relative">
-                            <span class="absolute -start-[22px] top-1 w-4 h-4 rounded-full bg-background border-2 border-outline-variant/40 flex items-center justify-center">
-                                <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                            </span>
-                            <div class="flex items-start gap-sm">
-                                <span class="material-symbols-outlined text-[20px] {{ $event['color'] }}">{{ $event['icon'] }}</span>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-body-md font-bold text-on-surface">{{ $event['title'] }}</p>
-                                    <p class="text-label-sm text-secondary truncate">{{ $event['meta'] }}</p>
-                                </div>
-                                <span class="text-label-sm text-secondary whitespace-nowrap">{{ $event['time'] }}</span>
-                            </div>
-                        </li>
-                    @endforeach
-                </ol>
+                <div class="rounded-xl border border-outline-variant/20 bg-surface-container-low p-lg text-body-md text-secondary">
+                    No live feed events yet.
+                </div>
             </div>
         </div>
     </section>
@@ -282,17 +270,25 @@
                 <span class="text-label-sm text-secondary">last 7 days</span>
             </div>
             <ul class="space-y-sm">
-                @foreach ($topArtists as $i => $a)
+                @forelse ($topArtists as $i => $a)
                     <li class="flex items-center gap-sm group">
                         <span class="text-body-md font-black text-secondary w-5 text-right">{{ $i + 1 }}</span>
-                        <img src="{{ $a['img'] }}" alt="{{ $a['name'] }}" class="w-10 h-10 rounded-lg object-cover" />
+                        @if ($a['img'])
+                            <img src="{{ $a['img'] }}" alt="{{ $a['name'] }}" class="w-10 h-10 rounded-lg object-cover" />
+                        @else
+                            <span class="flex w-10 h-10 rounded-lg bg-surface-container-high items-center justify-center text-primary font-bold uppercase">
+                                {{ collect(explode(' ', $a['name']))->map(fn ($p) => $p[0] ?? '')->join('') }}
+                            </span>
+                        @endif
                         <div class="flex-1 min-w-0">
                             <p class="text-body-md font-bold text-on-surface truncate">{{ $a['name'] }}</p>
                             <p class="text-label-sm text-secondary">{{ $a['plays'] }} plays</p>
                         </div>
                         <span class="text-label-sm font-bold text-primary">{{ $a['change'] }}</span>
                     </li>
-                @endforeach
+                @empty
+                    <li class="text-body-md text-secondary">No artist activity yet.</li>
+                @endforelse
             </ul>
         </div>
 
@@ -317,7 +313,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $u)
+                        @forelse ($users as $u)
                             @php
                                 $variant = $statusColor($u['status']);
                                 $variantClasses = [
@@ -353,7 +349,11 @@
                                     </button>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="6" class="px-lg py-xl text-center text-body-md text-secondary">No users yet.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -370,7 +370,7 @@
             <a href="{{ route('super-admin.system') }}" class="text-primary text-label-md font-bold uppercase tracking-widest hover:underline">Status Page</a>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-gutter">
-            @foreach ($systemHealth as $service)
+            @forelse ($systemHealth as $service)
                 @php
                     $isOk = strtolower($service['status']) === 'operational';
                 @endphp
@@ -387,7 +387,11 @@
                         <span>Uptime · <span class="text-on-surface font-bold">{{ $service['uptime'] }}</span></span>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <div class="md:col-span-2 xl:col-span-5 rounded-xl border border-outline-variant/20 bg-surface-container-low p-lg text-body-md text-secondary">
+                    No system health data yet.
+                </div>
+            @endforelse
         </div>
     </section>
 @endsection

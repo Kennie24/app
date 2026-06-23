@@ -20,6 +20,7 @@ export function Discover() {
   const featured = releases[0];
   const fresh = useMemo(() => releases.slice(1, 7), [releases]);
   const albums = useMemo(() => releases.filter((r) => r.type === "Album").slice(0, 6), [releases]);
+  const eps = useMemo(() => releases.filter((r) => r.type === "EP").slice(0, 6), [releases]);
   const singles = useMemo(() => releases.filter((r) => r.type === "Single").slice(0, 6), [releases]);
 
   return (
@@ -98,6 +99,12 @@ export function Discover() {
       {!loading && albums.length > 0 && (
         <Section title="Albums" subtitle="Long-players you can redeem end-to-end">
           <Grid releases={albums} />
+        </Section>
+      )}
+
+      {!loading && eps.length > 0 && (
+        <Section title="EPs" subtitle="Focused multi-track releases from verified artists">
+          <Grid releases={eps} />
         </Section>
       )}
 

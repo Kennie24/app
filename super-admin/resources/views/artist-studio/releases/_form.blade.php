@@ -121,7 +121,7 @@
                     <label class="flex flex-col gap-xs md:col-span-2">
                         <span class="text-label-lg uppercase tracking-widest text-on-surface-variant">Release Type</span>
                         <div class="bg-surface-container-high rounded-full p-1 flex gap-1 w-fit">
-                            @foreach (['single' => 'Single', 'album' => 'Album'] as $value => $label)
+                            @foreach (['single' => 'Single', 'ep' => 'EP', 'album' => 'Album'] as $value => $label)
                                 <label class="cursor-pointer">
                                     <input type="radio" name="release_type" value="{{ $value }}" class="peer sr-only"
                                            {{ old('release_type', $asset->release_type ?? 'single') === $value ? 'checked' : '' }} />
@@ -245,7 +245,7 @@
                 </div>
 
                 <p id="single-track-note" class="hidden mt-md text-label-sm text-tertiary">
-                    Singles can contain only one track. Choose Album to add more.
+                    Singles can contain only one track. Choose EP or Album to add more.
                 </p>
             </div>
 

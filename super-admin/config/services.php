@@ -35,29 +35,13 @@ return [
         ],
     ],
 
-    'stripe' => [
-        'public'        => env('STRIPE_PUBLIC_KEY'),
-        'secret'        => env('STRIPE_SECRET_KEY'),
-        'webhook_secret'=> env('STRIPE_WEBHOOK_SECRET'),
-        'currency'      => env('STRIPE_CURRENCY', 'usd'),
-    ],
-
-    'mtn_momo' => [
-        'base_url'         => env('MTN_MOMO_BASE_URL', 'https://sandbox.momodeveloper.mtn.com'),
-        'subscription_key' => env('MTN_MOMO_SUBSCRIPTION_KEY'),
-        'api_user'         => env('MTN_MOMO_API_USER'),
-        'api_key'          => env('MTN_MOMO_API_KEY'),
-        'target_env'       => env('MTN_MOMO_TARGET_ENV', 'sandbox'),
-        'currency'         => env('MTN_MOMO_CURRENCY', 'EUR'),
-        'callback_host'    => env('MTN_MOMO_CALLBACK_HOST'),
-    ],
-
-    'airtel_money' => [
-        'base_url'        => env('AIRTEL_BASE_URL', 'https://openapiuat.airtel.africa'),
-        'client_id'       => env('AIRTEL_CLIENT_ID'),
-        'client_secret'   => env('AIRTEL_CLIENT_SECRET'),
-        'country'         => env('AIRTEL_COUNTRY', 'UG'),
-        'currency'        => env('AIRTEL_CURRENCY', 'UGX'),
+    'pesapal' => [
+        'base_url'        => env('PESAPAL_BASE_URL', 'https://cybqa.pesapal.com/pesapalv3/api'),
+        'consumer_key'    => env('PESAPAL_CONSUMER_KEY'),
+        'consumer_secret' => env('PESAPAL_CONSUMER_SECRET'),
+        'ipn_id'          => env('PESAPAL_IPN_ID', ''),
+        'callback_url'    => env('PESAPAL_CALLBACK_URL', 'https://titantakuba.app/#/checkout/callback'),
+        'currency'        => env('PESAPAL_CURRENCY', 'UGX'),
     ],
 
 ];

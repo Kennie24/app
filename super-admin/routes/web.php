@@ -46,10 +46,8 @@ Route::prefix('api/artist')->name('artist-api.')->group(function () {
     });
 });
 
-// Payment provider webhooks (CSRF exempted in bootstrap/app.php).
-Route::post('webhooks/stripe', [CheckoutController::class, 'stripeWebhook']);
-Route::post('webhooks/mtn',    [CheckoutController::class, 'mtnWebhook']);
-Route::post('webhooks/airtel', [CheckoutController::class, 'airtelWebhook']);
+// PesaPal IPN webhook (CSRF exempted in bootstrap/app.php).
+Route::post('webhooks/pesapal', [CheckoutController::class, 'pesapalIpn']);
 
 Route::prefix('super-admin')->name('super-admin.')->group(function () {
     Route::controller(SuperAdminController::class)->group(function () {

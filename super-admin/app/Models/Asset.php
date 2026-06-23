@@ -13,6 +13,8 @@ class Asset extends Model
 {
     use HasFactory;
 
+    public const RELEASE_TYPES = ['single', 'ep', 'album'];
+
     protected $fillable = [
         'user_id', 'title', 'artist', 'release_type', 'slug', 'price', 'redemption_limit',
         'redemptions', 'status', 'cover_path', 'description',
@@ -77,6 +79,15 @@ class Asset extends Model
     public function statusLabel(): Attribute
     {
         return Attribute::get(fn () => Str::title($this->status));
+    }
+
+    public function releaseTypeLabel(): Attribute
+    {
+        return Attribute::get(fn () => match ($this->release_type) {
+            'album' => 'Album',
+            'ep' => 'EP',
+            default => 'Single',
+        });
     }
 
     public function priceFormatted(): Attribute

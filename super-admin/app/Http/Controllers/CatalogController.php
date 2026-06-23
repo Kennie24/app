@@ -78,7 +78,7 @@ class CatalogController extends Controller
             'slug'         => $asset->slug,
             'title'        => $asset->title,
             'artist'       => $asset->user?->artist_name ?: $asset->user?->name ?: $asset->artist,
-            'type'         => $asset->release_type === 'album' ? 'Album' : 'Single',
+            'type'         => $asset->release_type_label,
             'price'        => number_format((float) $asset->price, 2, '.', ''),
             'image'        => $asset->cover_url,
             'release_date' => optional($asset->created_at)->format('M j, Y'),

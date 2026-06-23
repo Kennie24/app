@@ -23,9 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // Provider webhooks live outside the CSRF / session world.
         $middleware->validateCsrfTokens(except: [
-            'webhooks/stripe',
-            'webhooks/mtn',
-            'webhooks/airtel',
+            'webhooks/pesapal',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

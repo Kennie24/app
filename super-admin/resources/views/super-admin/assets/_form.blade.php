@@ -72,13 +72,13 @@
                     <label class="flex flex-col gap-xs">
                         <span class="text-label-md uppercase tracking-widest text-secondary">Title <span class="text-error">*</span></span>
                         <input type="text" name="title" required value="{{ old('title', $asset->title) }}"
-                               placeholder="Synthetic Horizons"
+                               placeholder="Release title"
                                class="bg-surface-container-high rounded-lg px-md py-sm text-body-md text-on-surface outline-none focus:ring-1 focus:ring-primary" />
                     </label>
                     <label class="flex flex-col gap-xs">
                         <span class="text-label-md uppercase tracking-widest text-secondary">Artist <span class="text-error">*</span></span>
                         <input type="text" name="artist" required value="{{ old('artist', $asset->artist) }}"
-                               placeholder="Cyber Echoes"
+                               placeholder="Artist name"
                                class="bg-surface-container-high rounded-lg px-md py-sm text-body-md text-on-surface outline-none focus:ring-1 focus:ring-primary" />
                     </label>
                     <label class="flex flex-col gap-xs">

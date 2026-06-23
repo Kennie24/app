@@ -1,4 +1,13 @@
 // Scroll progress bar
+if ('fonts' in document) {
+    document.fonts
+        .load('24px "Material Symbols Outlined"')
+        .then(() => document.documentElement.classList.add('material-icons-ready'))
+        .catch(() => {});
+} else {
+    document.documentElement.classList.add('material-icons-ready');
+}
+
 const progress = document.querySelector('.scroll-progress');
 if (progress) {
     const setProgress = () => {

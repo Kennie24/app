@@ -2,7 +2,7 @@
 
 @section('title', 'Releases · Artist Studio')
 @section('page-title', 'Your Releases')
-@section('page-subtitle', 'Singles, albums and previews you publish to the store.')
+@section('page-subtitle', 'Singles, EPs, albums and previews you publish to the store.')
 
 @section('actions')
     <a href="{{ route('artist-studio.releases.create') }}"
@@ -21,7 +21,7 @@
             </div>
             <h3 class="font-headline-md text-headline-md font-bold mb-xs">No releases yet</h3>
             <p class="text-body-md text-on-surface-variant max-w-[28rem] mx-auto mb-lg">
-                Upload your first single or album. Add cover artwork, tracks, and a 30-second preview so listeners can sample before they redeem.
+                Upload your first single, EP, or album. Add cover artwork, tracks, and a 30-second preview so listeners can sample before they redeem.
             </p>
             <a href="{{ route('artist-studio.releases.create') }}"
                class="inline-flex items-center gap-2 px-lg py-3 rounded-xl bg-primary-container text-on-primary-container font-bold uppercase tracking-widest hover:brightness-105">

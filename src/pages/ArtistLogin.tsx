@@ -107,7 +107,7 @@ export function ArtistLogin() {
           </p>
           <div className="mt-xl grid max-w-lg grid-cols-3 gap-gutter">
             {[
-              ["audio_file", "Upload", "Singles & albums"],
+              ["audio_file", "Upload", "Singles, EPs & albums"],
               ["play_circle", "Preview", "30-second samples"],
               ["monitoring", "Analyze", "Real-time insights"],
             ].map(([icon, title, description]) => (

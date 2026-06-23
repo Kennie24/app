@@ -9,6 +9,7 @@ export function Store() {
   const [releases, setReleases] = useState<CatalogRelease[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [failedImages, setFailedImages] = useState<Set<string>>(() => new Set());
 
   useEffect(() => {
     catalogApi.list()
@@ -59,17 +60,12 @@ export function Store() {
             <StaggerItem key={release.id}>
               <Link to={`/store/${release.slug || release.id}`} className="group block">
                 <div className="relative mb-md aspect-square overflow-hidden rounded-xl border border-outline-variant/20 bg-surface-container">
-                  {release.image ? (
+                  {release.image && !failedImages.has(release.id) ? (
                     <img
                       src={release.image}
                       alt={release.title}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      onError={(e) => {
-                        const img = e.currentTarget;
-                        img.style.display = "none";
-                        img.parentElement?.classList.add("flex", "items-center", "justify-center");
-                        img.insertAdjacentHTML("afterend", `<span class="material-symbols-outlined text-secondary text-[48px]">album</span>`);
-                      }}
+                      onError={() => setFailedImages((items) => new Set(items).add(release.id))}
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center">

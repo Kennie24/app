@@ -3,7 +3,7 @@ export type CatalogRelease = {
   slug: string;
   title: string;
   artist: string;
-  type: "Single" | "Album";
+  type: "Single" | "EP" | "Album";
   price: string;
   image: string | null;
   release_date: string | null;

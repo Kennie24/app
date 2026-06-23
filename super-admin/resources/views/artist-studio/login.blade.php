@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
 
-    @vite(['resources/css/app.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-background text-on-background relative overflow-hidden"
       style="font-family: 'Manrope', system-ui, sans-serif;">
@@ -47,7 +47,7 @@
             </p>
             <div class="mt-lg grid max-w-[32rem] grid-cols-3 gap-gutter">
                 @foreach ([
-                    ['audio_file',  'Upload',  'Singles & albums'],
+                    ['audio_file',  'Upload',  'Singles, EPs & albums'],
                     ['play_circle', 'Preview', '30-second samples'],
                     ['monitoring',  'Analyze', 'Real-time insights'],
                 ] as [$icon, $title, $sub])

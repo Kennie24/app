@@ -1,3 +1,66 @@
+import {
+  AlertCircle,
+  ArrowLeft,
+  ArrowRight,
+  AudioWaveform,
+  BadgeCheck,
+  Bell,
+  CalendarDays,
+  Camera,
+  Check,
+  ChevronDown,
+  ChevronRight,
+  CircleHelp,
+  CircleCheck,
+  CircleOff,
+  CirclePause,
+  CirclePlay,
+  CirclePlus,
+  CircleStop,
+  CreditCard,
+  DiscAlbum,
+  Download,
+  Edit,
+  Eye,
+  EyeOff,
+  FileAudio,
+  Headphones,
+  Heart,
+  Hourglass,
+  ImagePlus,
+  Keyboard,
+  Library,
+  Lock,
+  LogIn,
+  LogOut,
+  Mail,
+  MessageSquare,
+  MoreVertical,
+  Music,
+  Pause,
+  Play,
+  Plus,
+  QrCode,
+  RefreshCw,
+  RotateCcw,
+  Save,
+  Search,
+  Settings,
+  Share2,
+  Shield,
+  ShoppingBag,
+  SkipForward,
+  Ticket,
+  Trash2,
+  TrendingUp,
+  Upload,
+  User,
+  UserPlus,
+  Wallet,
+  X,
+  ZoomIn,
+  type LucideIcon,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { CSSProperties } from "react";
 
@@ -8,16 +71,87 @@ type IconProps = {
   style?: CSSProperties;
 };
 
+const icons: Record<string, LucideIcon> = {
+  account_balance_wallet: Wallet,
+  add: Plus,
+  add_circle: CirclePlus,
+  add_photo_alternate: ImagePlus,
+  album: DiscAlbum,
+  arrow_back: ArrowLeft,
+  arrow_forward: ArrowRight,
+  audio_file: FileAudio,
+  calendar_month: CalendarDays,
+  cameraswitch: RefreshCw,
+  cancel: CircleOff,
+  check: Check,
+  check_circle: CircleCheck,
+  chevron_right: ChevronRight,
+  close: X,
+  confirmation_number: Ticket,
+  credit_card: CreditCard,
+  delete: Trash2,
+  download: Download,
+  edit: Edit,
+  error: AlertCircle,
+  expand_more: ChevronDown,
+  explore: Search,
+  favorite: Heart,
+  forum: MessageSquare,
+  graphic_eq: AudioWaveform,
+  headphones: Headphones,
+  home: Music,
+  hourglass_top: Hourglass,
+  keyboard: Keyboard,
+  library_music: Library,
+  lock: Lock,
+  login: LogIn,
+  logout: LogOut,
+  mail: Mail,
+  more_vert: MoreVertical,
+  music_note: Music,
+  notifications: Bell,
+  pause: Pause,
+  pause_circle: CirclePause,
+  person: User,
+  person_add: UserPlus,
+  photo_camera: Camera,
+  play_arrow: Play,
+  play_circle: CirclePlay,
+  progress_activity: RefreshCw,
+  publish: Upload,
+  qr_code_scanner: QrCode,
+  refresh: RefreshCw,
+  report: AlertCircle,
+  restart_alt: RotateCcw,
+  save: Save,
+  search: Search,
+  security: Shield,
+  settings: Settings,
+  share: Share2,
+  shopping_bag: ShoppingBag,
+  skip_next: SkipForward,
+  stop_circle: CircleStop,
+  token: Ticket,
+  trending_up: TrendingUp,
+  upload: Upload,
+  verified: BadgeCheck,
+  verified_user: Shield,
+  visibility: Eye,
+  visibility_off: EyeOff,
+  zoom_in: ZoomIn,
+};
+
 export function Icon({ name, className, filled, style }: IconProps) {
+  const SvgIcon = icons[name] ?? CircleHelp;
+
   return (
-    <span
-      className={cn("material-symbols-outlined", className)}
-      style={{
-        ...(filled ? { fontVariationSettings: "'FILL' 1" } : null),
-        ...style,
-      }}
-    >
-      {name}
-    </span>
+    <SvgIcon
+      aria-hidden="true"
+      className={cn("inline-block h-[1em] w-[1em] shrink-0 align-[-0.125em]", className)}
+      fill={filled ? "currentColor" : "none"}
+      focusable="false"
+      strokeWidth={2}
+      style={style}
+    />
   );
 }

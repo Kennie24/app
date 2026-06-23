@@ -90,7 +90,7 @@ class ArtistApiController extends Controller
 
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'release_type' => ['required', Rule::in(['single', 'album'])],
+            'release_type' => ['required', Rule::in(Asset::RELEASE_TYPES)],
             'price' => ['required', 'numeric', 'min:0', 'max:9999.99'],
             'status' => ['required', Rule::in(['live', 'scheduled'])],
             'cover' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
@@ -192,7 +192,7 @@ class ArtistApiController extends Controller
         return [
             'id' => (string) $asset->id,
             'title' => $asset->title,
-            'type' => $asset->release_type === 'album' ? 'Album' : 'Single',
+            'type' => $asset->release_type_label,
             'status' => $asset->status === 'live' ? 'Live' : 'Draft',
             'price' => number_format((float) $asset->price, 2, '.', ''),
             'image' => $asset->cover_url,
