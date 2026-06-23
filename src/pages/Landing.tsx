@@ -191,15 +191,15 @@ export function Landing() {
           <Icon name="shopping_bag" />
           <span className="text-label-sm">Store</span>
         </Link>
-        <Link to="/scan" className="flex flex-col items-center justify-center rounded-full bg-secondary-container px-4 py-1 text-on-surface">
+        <Link to="/login" className="flex flex-col items-center justify-center text-on-surface-variant">
           <Icon name="library_music" />
           <span className="text-label-sm">Library</span>
         </Link>
-        <Link to="/scan" className="flex flex-col items-center justify-center text-on-surface-variant">
+        <Link to="/login" className="flex flex-col items-center justify-center text-on-surface-variant">
           <Icon name="qr_code_scanner" />
           <span className="text-label-sm">Redeem</span>
         </Link>
-        <Link to="/profile" className="flex flex-col items-center justify-center text-on-surface-variant">
+        <Link to="/login" className="flex flex-col items-center justify-center text-on-surface-variant">
           <Icon name="person" />
           <span className="text-label-sm">Profile</span>
         </Link>
