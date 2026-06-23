@@ -43,15 +43,17 @@ export function Landing() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-surface pb-32 text-on-surface">
       {/* Top Bar */}
-      <header className="fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between bg-surface px-gutter shadow-sm">
-        <span className="text-headline-lg-mobile font-black text-primary">Orange Music</span>
-        <div className="flex gap-4">
-          <Icon name="search" className="cursor-pointer text-primary" />
-          <Icon name="notifications" className="cursor-pointer text-primary" />
+      <header className="fixed inset-x-0 top-0 z-50 flex h-14 justify-center bg-surface shadow-sm">
+        <div className="flex w-full max-w-md items-center justify-between px-gutter">
+          <span className="text-headline-lg-mobile font-black text-primary">Orange Music</span>
+          <div className="flex gap-4">
+            <Icon name="search" className="cursor-pointer text-primary" />
+            <Icon name="notifications" className="cursor-pointer text-primary" />
+          </div>
         </div>
       </header>
 
-      <main className="mt-14">
+      <main className="mx-auto mt-14 max-w-md">
         {/* Artist Hero */}
         <section className="relative flex h-[530px] w-full flex-col justify-end">
           <div className="absolute inset-0 z-0">
@@ -180,7 +182,7 @@ export function Landing() {
       </main>
 
       {/* Bottom Nav */}
-      <nav className="fixed bottom-0 z-[60] flex w-full items-center justify-around rounded-t-xl bg-surface-container-lowest px-2 pb-2 pt-1 shadow-[0_-4px_20px_rgba(0,0,0,0.04)]">
+      <nav className="fixed bottom-0 left-1/2 z-[60] flex w-full max-w-md -translate-x-1/2 items-center justify-around rounded-t-xl bg-surface-container-lowest px-2 pb-2 pt-1 shadow-[0_-4px_20px_rgba(0,0,0,0.04)]">
         <Link to="/" className="flex flex-col items-center justify-center text-primary">
           <Icon name="home" filled />
           <span className="text-label-sm">Home</span>
@@ -205,7 +207,7 @@ export function Landing() {
 
       {/* Mini Player */}
       <div
-        className="fixed bottom-[68px] left-2 right-2 z-50 rounded-2xl p-3 shadow-2xl"
+        className="fixed bottom-[68px] left-1/2 z-50 w-full max-w-md -translate-x-1/2 rounded-2xl p-3 shadow-2xl"
         style={{ backdropFilter: "blur(12px)", background: "rgba(30,30,30,0.85)", borderTop: "1px solid #2C2C2C" }}
       >
         <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex items-center gap-2 whitespace-nowrap rounded-full bg-surface-container-high px-4 py-2 shadow-lg animate-bounce" style={{ animationDuration: "2000ms" }}>
