@@ -169,9 +169,6 @@ export function Login() {
           <p className="mt-lg font-body-md text-body-md text-secondary">
             New here? <Link to="/signup" className="font-bold text-primary hover:underline">Create an account</Link>
           </p>
-          <Link to="/artist/login" className="mt-md inline-flex items-center gap-xs rounded-full border border-primary/25 bg-primary/5 px-md py-sm font-label-md text-label-md font-bold text-primary transition-colors hover:bg-primary/10">
-            <Icon name="graphic_eq" className="text-[18px]" /> Artist workspace login
-          </Link>
         </div>
       </motion.main>
 
