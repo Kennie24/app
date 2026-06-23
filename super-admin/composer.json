@@ -6,11 +6,22 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.3",
+        "php": "^8.2",
         "doctrine/dbal": "^4.4",
         "laravel/framework": "^13.8",
         "laravel/tinker": "^3.0",
-        "stripe/stripe-php": "^20.2"
+        "stripe/stripe-php": "^20.2",
+        "symfony/console": "^7.4",
+        "symfony/error-handler": "^7.4",
+        "symfony/finder": "^7.4",
+        "symfony/http-foundation": "^7.4",
+        "symfony/http-kernel": "^7.4",
+        "symfony/mailer": "^7.4",
+        "symfony/mime": "^7.4",
+        "symfony/process": "^7.4",
+        "symfony/routing": "^7.4",
+        "symfony/uid": "^7.4",
+        "symfony/var-dumper": "^7.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -85,6 +96,9 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
+        },
+        "platform": {
+            "php": "8.2.12"
         }
     },
     "minimum-stability": "stable",
