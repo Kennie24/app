@@ -49,7 +49,7 @@ export function Login() {
         }
 
         await fanApi.login(trimmed, password, remember);
-        navigate("/store");
+        navigate("/");
       } catch (reason) {
         setError(reason instanceof Error ? reason.message : "Could not sign in.");
       } finally {
@@ -65,9 +65,9 @@ export function Login() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#121212] text-on-background">
       <header className="fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between bg-[#121212]/80 px-gutter backdrop-blur-xl">
-        <Link to="/login" className="flex items-center gap-base">
+        <Link to="/" className="flex items-center gap-base">
           <Icon name="music_note" className="text-primary text-headline-md" filled />
-          <span className="font-headline-md text-headline-md font-black tracking-tight text-primary">SoundRedeem</span>
+          <span className="font-headline-md text-headline-md font-black tracking-tight text-primary">Titan Takuba Music</span>
         </Link>
         <Link to="/signup" className="font-label-md text-label-md text-secondary hover:text-primary transition-colors">SIGN UP</Link>
       </header>
@@ -79,8 +79,8 @@ export function Login() {
         className="relative z-10 mx-auto flex min-h-screen w-full max-w-md flex-col px-container-margin pb-xl pt-24"
       >
         <div className="mb-xl text-center">
-          <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-on-background">Log in to SoundRedeem</h1>
-          <p className="mt-xs font-body-md text-body-md text-secondary">Sign in to your fan account to access verified redemptions.</p>
+          <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-on-background">Welcome back</h1>
+          <p className="mt-xs font-body-md text-body-md text-secondary">Sign in to your account to continue.</p>
         </div>
 
         <div className="mb-lg flex border-b border-surface-container-highest" role="tablist">
@@ -164,10 +164,10 @@ export function Login() {
 
         <div className="mt-auto pt-xl text-center">
           <p className="px-md font-body-md text-body-md text-on-surface-variant">
-            By continuing, you agree to SoundRedeem&apos;s <a className="font-bold text-on-surface hover:underline" href="#">Terms of Service</a> and <a className="font-bold text-on-surface hover:underline" href="#">Privacy Policy</a>.
+            By continuing, you agree to Titan Takuba Music&apos;s <a className="font-bold text-on-surface hover:underline" href="#">Terms of Service</a> and <a className="font-bold text-on-surface hover:underline" href="#">Privacy Policy</a>.
           </p>
           <p className="mt-lg font-body-md text-body-md text-secondary">
-            New to SoundRedeem? <Link to="/signup" className="font-bold text-primary hover:underline">Create an account</Link>
+            New here? <Link to="/signup" className="font-bold text-primary hover:underline">Create an account</Link>
           </p>
           <Link to="/artist/login" className="mt-md inline-flex items-center gap-xs rounded-full border border-primary/25 bg-primary/5 px-md py-sm font-label-md text-label-md font-bold text-primary transition-colors hover:bg-primary/10">
             <Icon name="graphic_eq" className="text-[18px]" /> Artist workspace login
