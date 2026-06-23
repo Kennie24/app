@@ -93,8 +93,8 @@ export function Landing() {
               <Link to="/store" className="rounded-full bg-primary-container px-lg py-sm text-label-md font-bold text-on-primary-container">
                 Browse store
               </Link>
-              <Link to="/artist/login" className="rounded-full border border-outline-variant/30 px-lg py-sm text-label-md text-on-surface">
-                Artist login
+              <Link to="/login" className="rounded-full border border-outline-variant/30 px-lg py-sm text-label-md text-on-surface">
+                Login
               </Link>
             </div>
           </section>
