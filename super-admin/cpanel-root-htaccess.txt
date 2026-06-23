@@ -1,0 +1,6 @@
+# Place this file as  .htaccess  in the Laravel root folder
+# (the folder OUTSIDE public_html that contains app/, bootstrap/, vendor/, etc.)
+# Rename it from cpanel-root-htaccess.txt to .htaccess after uploading.
+
+Options -Indexes
+Deny from all
