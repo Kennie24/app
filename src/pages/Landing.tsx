@@ -97,7 +97,7 @@ export function Landing() {
         <section className="mt-xl px-gutter">
           <div className="mb-lg flex items-end justify-between">
             <h2 className="text-headline-md">Music &amp; Merch</h2>
-            <Link to="/store" className="text-label-md text-primary">View All</Link>
+            <Link to="/login" className="text-label-md text-primary">View All</Link>
           </div>
 
           {/* Featured Album */}
@@ -121,7 +121,7 @@ export function Landing() {
                 <p className="text-headline-md text-primary">$12.99</p>
               </div>
               <button
-                onClick={() => navigate("/store")}
+                onClick={() => navigate("/login")}
                 className="w-full rounded-xl bg-primary-container py-4 text-headline-md text-on-primary-container transition-transform active:scale-[0.98]"
               >
                 Buy Album
@@ -185,7 +185,7 @@ export function Landing() {
           <Icon name="home" filled />
           <span className="text-label-sm">Home</span>
         </Link>
-        <Link to="/store" className="flex flex-col items-center justify-center text-on-surface-variant">
+        <Link to="/login" className="flex flex-col items-center justify-center text-on-surface-variant">
           <Icon name="shopping_bag" />
           <span className="text-label-sm">Store</span>
         </Link>
