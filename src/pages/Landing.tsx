@@ -163,8 +163,8 @@ export function Landing() {
           <div className="relative overflow-hidden rounded-2xl bg-primary-container p-xl text-on-primary-container">
             <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-3xl" />
             <div className="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-black/10 blur-3xl" />
-            <h2 className="relative z-10 text-headline-lg mb-2">Join the Inner Circle</h2>
-            <p className="relative z-10 mb-lg text-body-md opacity-90">
+            <h2 className="relative z-10 text-headline-lg mb-2 text-black">Join the Inner Circle</h2>
+            <p className="relative z-10 mb-lg text-body-md text-black/80">
               Get exclusive access to pre-releases, limited vinyl, and secret tour dates.
             </p>
             <div className="relative z-10 flex flex-col gap-sm">
