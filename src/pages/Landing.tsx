@@ -210,11 +210,6 @@ export function Landing() {
         className="fixed bottom-[68px] left-1/2 z-50 w-full max-w-md -translate-x-1/2 rounded-2xl p-3 shadow-2xl"
         style={{ backdropFilter: "blur(12px)", background: "rgba(30,30,30,0.85)", borderTop: "1px solid #2C2C2C" }}
       >
-        <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex items-center gap-2 whitespace-nowrap rounded-full bg-surface-container-high px-4 py-2 shadow-lg animate-bounce" style={{ animationDuration: "2000ms" }}>
-          <Icon name="info" className="text-[16px] text-primary" />
-          <span className="text-label-sm text-on-surface">Enjoying the preview? Log in for full tracks.</span>
-        </div>
-
         <div className="flex items-center justify-between gap-4">
           <div className="flex min-w-0 items-center gap-3">
             <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg bg-surface-container-highest">
